@@ -207,6 +207,8 @@ describe('add credentials page', () => {
                 cluster: 'cluster',
                 datacenter: 'datacenter',
                 defaultDatastore: 'defaultDatastore',
+                folder: 'folder',
+                resourcePool: 'resourcePool'
                 imageContentSources: '',
             },
             true
@@ -227,6 +229,8 @@ describe('add credentials page', () => {
         await typeByTestId('cluster', providerConnection.stringData?.cluster!)
         await typeByTestId('datacenter', providerConnection.stringData?.datacenter!)
         await typeByTestId('defaultDatastore', providerConnection.stringData?.defaultDatastore!)
+        await typeByTestId('folder', providerConnection.stringData?.vsphereFolder!)
+        await typeByTestId('resourcePool', providerConnection.stringData?.vsphereResourcePool!)
         await clickByText('Next')
 
         // skip disconnected
