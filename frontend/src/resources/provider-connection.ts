@@ -37,6 +37,8 @@ export interface ProviderConnectionStringData {
     cluster?: string
     datacenter?: string
     defaultDatastore?: string
+    folder?: string
+    resourcePool: string
 
     // Hive BareMetal
     libvirtURI?: string

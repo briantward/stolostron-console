@@ -300,6 +300,8 @@ export function CredentialsForm(props: {
     const [cluster, setVmClusterName] = useState(() => providerConnection?.stringData?.cluster ?? '')
     const [datacenter, setDatacenter] = useState(() => providerConnection?.stringData?.datacenter ?? '')
     const [defaultDatastore, setDatastore] = useState(() => providerConnection?.stringData?.defaultDatastore ?? '')
+    const [vsphereFolder, setVsphereFolder] = useState(() => providerConnection?.stringData?.vsphereFolder ?? '')
+    const [vsphereResourcePool, setVsphereResourcePool] = useState(() => providerConnection?.stringData?.vsphereResourcePool ?? '')
 
     // OpenStack
     const [cloudsYaml, setOpenstackCloudsYaml] = useState(() => providerConnection?.stringData?.['clouds.yaml'] ?? '')
@@ -414,6 +416,8 @@ export function CredentialsForm(props: {
                 secret.stringData!.cluster = cluster
                 secret.stringData!.datacenter = datacenter
                 secret.stringData!.defaultDatastore = defaultDatastore
+                secret.stringData!.vsphereFolder = vsphereFolder
+                secret.stringData!.vsphereResourcePool = vsphereResourcePool
                 secret.stringData!.baseDomain = baseDomain
                 secret.stringData!.pullSecret = pullSecret
                 secret.stringData!['ssh-privatekey'] = sshPrivatekey
@@ -520,6 +524,8 @@ export function CredentialsForm(props: {
             { path: 'Secret[0].stringData.cluster', setState: setVmClusterName },
             { path: 'Secret[0].stringData.datacenter', setState: setDatacenter },
             { path: 'Secret[0].stringData.defaultDatastore', setState: setDatastore },
+            { path: 'Secret[0].stringData.vsphereFolder', setState: setVsphereFolder },
+            { path: 'Secret[0].stringData.vsphereResourcePool', setState: setVsphereResourcePool },
             { path: ['Secret', '0', 'stringData', 'clouds.yaml'], setState: setOpenstackCloudsYaml },
             { path: 'Secret[0].stringData.cloud', setState: setOpenstackCloud },
             { path: 'Secret[0].stringData.ovirt_url', setState: setOvirtUrl },
@@ -946,6 +952,28 @@ export function CredentialsForm(props: {
                         labelHelp: t('The name of the default vSphere defaultDatastore to use.'),
                         value: defaultDatastore,
                         onChange: setDatastore,
+                        isRequired: true,
+                    },
+                    {
+                        id: 'vsphereFolder',
+                        isHidden: credentialsType !== Provider.vmware,
+                        type: 'Text',
+                        label: t('vSphere Folder'),
+                        placeholder: t('(optional) Enter your vSphere folder path'),
+                        labelHelp: t('The path of the default vSphere folder to use.'),
+                        value: vsphereFolder,
+                        onChange: setVsphereFolder,
+                        isRequired: true,
+                    },
+                    {
+                        id: 'vsphereResourcePool',
+                        isHidden: credentialsType !== Provider.vmware,
+                        type: 'Text',
+                        label: t('vSphere default ResourcePool'),
+                        placeholder: t('(optional) Enter your vSphere ResourcePool path'),
+                        labelHelp: t('The path of the default vSphere ResourcePool to use.'),
+                        value: vsphereResourcePool,
+                        onChange: setVsphereResourcePool,
                         isRequired: true,
                     },
                 ],
